@@ -8,9 +8,8 @@ public class Student {
     private int course4;
     private int course5;
 
-    private Student(String name, int studentID, int choice1, int choice2, int choice3, int choice4, int choice5){
+    public Student(String name, int choice1, int choice2, int choice3, int choice4, int choice5){
         this.name = name;
-        this.studentID = studentID;
         course1 = choice1;
         course2 = choice2;
         course3 = choice3;
