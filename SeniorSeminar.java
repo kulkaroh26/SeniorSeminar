@@ -46,6 +46,7 @@ public class SeniorSeminar {
         System.out.println("Course " + i + ": " + s1.courseTally[i]);
     }
     s1.InsertionSort(courseTally,courseID);
+    int[][] schedule = s1.courseSchedule(courseID);
 }
     public static void InsertionSort (int[] array, int[] arrayID){ //takes in an array of course tallies and the ID's of the courses and returns them in sorted order
         for (int i=1;i<array.length;i++){ //starts at 1 since the first number is already in sorted portion
@@ -65,6 +66,25 @@ public class SeniorSeminar {
              System.out.println("Course "+arrayID[z]+": "+array[z]);
         }
         
+    }
+    public static int[][] courseSchedule(int[] sessionID){
+        int[][] courseSchedule = new int[5][5]; //5x5 array to hold the course schedule
+        int len = sessionID.length; //courseTally array is arranged least to most popular, so have to run backwards from the array
+        for (int i=0;i<5;i++){
+            for (int j=0;j<5;j++){
+                if (sessionID[len]==0){
+                    len--;
+                }
+                if (len==0){
+                    courseSchedule[j][i]=sessionID[len];
+                    len = sessionID.length;
+                }
+                courseSchedule[j][i]=sessionID[len]; //sets the course schedule to the most popular courses in order going down then across
+                len--;
+
+            }
+        }
+        return courseSchedule; //returns the course schedule
     }
   
 }
