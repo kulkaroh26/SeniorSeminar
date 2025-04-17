@@ -1,9 +1,11 @@
 import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
+import java.util.ArrayList;
 import java.util.Scanner; // Import the Scanner class to read text files
 
 public class SeniorSeminar {
-    private int[] courseTally = new int[19];
+    private static int[] courseTally = new int[19]; //array that tallies the amount of people who voted for each course
+    private static int[] courseID = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}; //used to identify each individual course
     private static Student[] studentCourses = new Student[75]; //75 students
   
     public SeniorSeminar() {
@@ -38,10 +40,32 @@ public class SeniorSeminar {
   public static void main(String[] args) {
     SeniorSeminar s1 = new SeniorSeminar();
     for (int i = 0; i < s1.studentCourses.length-1; i++) {
-        System.out.println(studentCourses[i].getName() + ": " + studentCourses[i].getCourse1()+", "+ studentCourses[i].getCourse2()+", "+ studentCourses[i].getCourse3()+", "+ studentCourses[i].getCourse4()+", "+ studentCourses[i].getCourse5()+", ");
+        System.out.println(studentCourses[i].getName() + ": " + studentCourses[i].getCourse1()+", "+ studentCourses[i].getCourse2()+", "+ studentCourses[i].getCourse3()+", "+ studentCourses[i].getCourse4()+", "+ studentCourses[i].getCourse5());
     }
     for (int i = 0; i < s1.courseTally.length; i++) {
         System.out.println("Course " + i + ": " + s1.courseTally[i]);
     }
-  }
+    s1.InsertionSort(courseTally,courseID);
 }
+    public static void InsertionSort (int[] array, int[] arrayID){ //takes in an array of course tallies and the ID's of the courses and returns them in sorted order
+        for (int i=1;i<array.length;i++){ //starts at 1 since the first number is already in sorted portion
+            int temp = array[i]; //sets a temp value
+            int tempID = arrayID[i];
+            int j = i-1;
+            while (j>=0&&temp<array[j]){ //while the temp value is less than the number at the index, keep moving down
+                array[j+1]=array[j]; //shifts all values to the right
+                arrayID[j+1]=arrayID[j]; //shifts the ID's to the right as well
+                j--; //increments j down    
+            }
+            array[j+1]=temp; //when the loop ends, put the number in the correct position
+            arrayID[j+1]=tempID;
+    }
+        System.out.println("Insertion Sort: "); //the rest prints out the values of the sort as well as comparison and moves
+        for (int z=0;z<array.length;z++){
+             System.out.println("Course "+arrayID[z]+": "+array[z]);
+        }
+        
+    }
+  
+}
+
