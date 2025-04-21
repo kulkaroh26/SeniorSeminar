@@ -47,6 +47,10 @@ public class SeniorSeminar {
     }
     s1.InsertionSort(courseTally,courseID);
     Session[][] schedule = s1.courseSchedule(courseID);
+    for (int x=0;x<studentCourses.length;x++){
+        s1.addStudents(schedule, studentCourses[x]);
+        s1.printSchedule(schedule);
+    }
 }
     public static void InsertionSort (int[] array, int[] arrayID){ //takes in an array of course tallies and the ID's of the courses and returns them in sorted order
         for (int i=1;i<array.length;i++){ //starts at 1 since the first number is already in sorted portion
@@ -102,7 +106,35 @@ public class SeniorSeminar {
         }
         return coursePlacement; //returns the course schedule
     }
-
+    public static void addStudents(Session[][] coursePlacement, Student student){ //adds students to the course schedule
+        for (int i=0;i<coursePlacement.length;i++){
+            for (int j=0;j<coursePlacement[i].length;j++){
+                if (coursePlacement[i][j].getSessionId()==student.getCourse1()){
+                    coursePlacement[i][j].addStudent(student);
+                }
+                if (coursePlacement[i][j].getSessionId()==student.getCourse2()){
+                    coursePlacement[i][j].addStudent(student);
+                }
+                if (coursePlacement[i][j].getSessionId()==student.getCourse3()){
+                    coursePlacement[i][j].addStudent(student);
+                }
+                if (coursePlacement[i][j].getSessionId()==student.getCourse4()){
+                    coursePlacement[i][j].addStudent(student);
+                }
+                if (coursePlacement[i][j].getSessionId()==student.getCourse5()){
+                    coursePlacement[i][j].addStudent(student);
+                }
+            }
+        }
+    }
+    public static void printSchedule(Session[][] coursePlacement){ //prints out the course schedule
+        for (int i=0;i<coursePlacement.length;i++){
+            for (int j=0;j<coursePlacement[i].length;j++){
+                System.out.print(coursePlacement[i][j].getSessionId()+"\t"); //prints out the course schedule
+            }
+            System.out.println();
+        } 
+    }
   
 }
 
