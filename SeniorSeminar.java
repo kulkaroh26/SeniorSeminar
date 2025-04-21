@@ -69,20 +69,28 @@ public class SeniorSeminar {
     }
     public static int[][] courseSchedule(int[] sessionID){
         int[][] courseSchedule = new int[5][5]; //5x5 array to hold the course schedule
-        int len = sessionID.length; //courseTally array is arranged least to most popular, so have to run backwards from the array
+        int len = sessionID.length-1; //courseTally array is arranged least to most popular, so have to run backwards from the array
         for (int i=0;i<5;i++){
             for (int j=0;j<5;j++){
                 if (sessionID[len]==0){
                     len--;
+                    courseSchedule[j][i]=sessionID[len];
+                    len--;
                 }
                 if (len==0){
                     courseSchedule[j][i]=sessionID[len];
-                    len = sessionID.length;
+                    len = sessionID.length-1;
                 }
                 courseSchedule[j][i]=sessionID[len]; //sets the course schedule to the most popular courses in order going down then across
                 len--;
 
             }
+        }
+        for (int z=0;z<5;z++){
+            for (int y=0;y<5;y++){
+                System.out.print(courseSchedule[z][y]+"\t"); //prints out the course schedule
+            }
+            System.out.println();
         }
         return courseSchedule; //returns the course schedule
     }
