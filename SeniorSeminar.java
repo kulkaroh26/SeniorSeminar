@@ -46,7 +46,7 @@ public class SeniorSeminar {
         System.out.println("Course " + i + ": " + s1.courseTally[i]);
     }
     s1.InsertionSort(courseTally,courseID);
-    int[][] schedule = s1.courseSchedule(courseID);
+    Session[][] schedule = s1.courseSchedule(courseID);
 }
     public static void InsertionSort (int[] array, int[] arrayID){ //takes in an array of course tallies and the ID's of the courses and returns them in sorted order
         for (int i=1;i<array.length;i++){ //starts at 1 since the first number is already in sorted portion
@@ -67,7 +67,7 @@ public class SeniorSeminar {
         }
         
     }
-    public static int[][] courseSchedule(int[] sessionID){
+    public static Session[][] courseSchedule(int[] sessionID){
         int[][] courseSchedule = new int[5][5]; //5x5 array to hold the course schedule
         int len = sessionID.length-1; //courseTally array is arranged least to most popular, so have to run backwards from the array
         for (int i=0;i<5;i++){
@@ -91,9 +91,18 @@ public class SeniorSeminar {
                 System.out.print(courseSchedule[z][y]+"\t"); //prints out the course schedule
             }
             System.out.println();
+        } 
+        //above prints out a 2D array representing which courses are in which time slots
+        //now we need to assign the actual courses to the time slots in a seperate 2D array
+        Session[][] coursePlacement = new Session[5][5]; //2D array to hold the course schedule
+        for (int i=0;i<5;i++){
+            for (int j=0;j<5;j++){
+                coursePlacement[j][i]= new Session(courseSchedule[j][i], i, j); //creates a session object for each course in the schedule
+            }
         }
-        return courseSchedule; //returns the course schedule
+        return coursePlacement; //returns the course schedule
     }
+
   
 }
 
