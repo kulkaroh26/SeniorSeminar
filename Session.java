@@ -24,8 +24,8 @@ public class Session {
         return timeSlot;
     }
 
-    public void addStudent(Student student){
-        roster.add(student);
+    public void addStudent(Student student2){
+        roster.add(student2);
         numStudents++;
     }
 }

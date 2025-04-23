@@ -7,6 +7,8 @@ public class SeniorSeminar {
     private static int[] courseTally = new int[19]; //array that tallies the amount of people who voted for each course
     private static int[] courseID = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}; //used to identify each individual course
     private static Student[] studentCourses = new Student[75]; //75 students
+    static int[][] courseSchedule = new int[5][5]; //5x5 array to hold the course schedule
+    static Session[][] coursePlacement = new Session[5][5]; //2D array to hold the course schedule
   
     public SeniorSeminar() {
         Scanner scan = new Scanner(System.in);
@@ -48,8 +50,12 @@ public class SeniorSeminar {
     s1.InsertionSort(courseTally,courseID);
     Session[][] schedule = s1.courseSchedule(courseID);
     for (int x=0;x<studentCourses.length;x++){
-        s1.addStudents(schedule, studentCourses[x]);
+        int a = 0; //used to reference the course in schedule in next line
+        int b = 0;
+        s1.addStudents(schedule, schedule[a][b], studentCourses[x]);
         s1.printSchedule(schedule);
+        a++;
+        b++;
     }
 }
     public static void InsertionSort (int[] array, int[] arrayID){ //takes in an array of course tallies and the ID's of the courses and returns them in sorted order
@@ -72,7 +78,6 @@ public class SeniorSeminar {
         
     }
     public static Session[][] courseSchedule(int[] sessionID){
-        int[][] courseSchedule = new int[5][5]; //5x5 array to hold the course schedule
         int len = sessionID.length-1; //courseTally array is arranged least to most popular, so have to run backwards from the array
         for (int i=0;i<5;i++){
             for (int j=0;j<5;j++){
@@ -98,7 +103,6 @@ public class SeniorSeminar {
         } 
         //above prints out a 2D array representing which courses are in which time slots
         //now we need to assign the actual courses to the time slots in a seperate 2D array
-        Session[][] coursePlacement = new Session[5][5]; //2D array to hold the course schedule
         for (int i=0;i<5;i++){
             for (int j=0;j<5;j++){
                 coursePlacement[j][i]= new Session(courseSchedule[j][i], i, j); //creates a session object for each course in the schedule
@@ -106,23 +110,11 @@ public class SeniorSeminar {
         }
         return coursePlacement; //returns the course schedule
     }
-    public static void addStudents(Session[][] coursePlacement, Student student){ //adds students to the course schedule
+    public static void addStudents(Session[][] coursePlacement, Session s1, Student student){ //adds students to the course schedule
         for (int i=0;i<coursePlacement.length;i++){
             for (int j=0;j<coursePlacement[i].length;j++){
-                if (coursePlacement[i][j].getSessionId()==student.getCourse1()){
-                    coursePlacement[i][j].addStudent(student);
-                }
-                if (coursePlacement[i][j].getSessionId()==student.getCourse2()){
-                    coursePlacement[i][j].addStudent(student);
-                }
-                if (coursePlacement[i][j].getSessionId()==student.getCourse3()){
-                    coursePlacement[i][j].addStudent(student);
-                }
-                if (coursePlacement[i][j].getSessionId()==student.getCourse4()){
-                    coursePlacement[i][j].addStudent(student);
-                }
-                if (coursePlacement[i][j].getSessionId()==student.getCourse5()){
-                    coursePlacement[i][j].addStudent(student);
+                if (s1.getSessionId()==student.getCourse1()){
+                    s1.addStudent(student);
                 }
             }
         }
