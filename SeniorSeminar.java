@@ -23,14 +23,12 @@ public class SeniorSeminar {
                 if (dataSplit.length==0){
                     break;
                 }
-                //System.out.println(dataSplit.length);
                 studentCourses[x] = new Student(dataSplit[3], Integer.parseInt(dataSplit[10]),Integer.parseInt(dataSplit[11]),Integer.parseInt(dataSplit[12]),Integer.parseInt(dataSplit[13]),Integer.parseInt(dataSplit[14]));
-                courseTally[Integer.parseInt(dataSplit[10])]++;
+                courseTally[Integer.parseInt(dataSplit[10])]++; //for each course in a students top 5 courses, adds one to the tally
                 courseTally[Integer.parseInt(dataSplit[11])]++;
                 courseTally[Integer.parseInt(dataSplit[12])]++;
                 courseTally[Integer.parseInt(dataSplit[13])]++;
                 courseTally[Integer.parseInt(dataSplit[14])]++;
-                //System.out.println("Works");
                 x++;
             }
         } 
@@ -39,22 +37,22 @@ public class SeniorSeminar {
             e.printStackTrace();
         } 
   }
-  public static void main(String[] args) {
-    SeniorSeminar s1 = new SeniorSeminar();
-    for (int i = 0; i < s1.studentCourses.length-1; i++) {
+  public static void main(String[] args) { //main method, calls all the other functions
+    SeniorSeminar s1 = new SeniorSeminar(); //creates senior seminar object
+    for (int i = 0; i < s1.studentCourses.length-1; i++) { //prints each student and their top 5 courses
         System.out.println(studentCourses[i].getName() + ": " + studentCourses[i].getCourse1()+", "+ studentCourses[i].getCourse2()+", "+ studentCourses[i].getCourse3()+", "+ studentCourses[i].getCourse4()+", "+ studentCourses[i].getCourse5());
     }
-    for (int i = 0; i < s1.courseTally.length; i++) {
+    for (int i = 0; i < s1.courseTally.length; i++) { //prints the course tally for each course
         System.out.println("Course " + i + ": " + s1.courseTally[i]);
     }
-    s1.InsertionSort(courseTally,courseID);
-    Session[][] schedule = s1.courseSchedule(courseID);
+    s1.InsertionSort(courseTally,courseID); //runs the Insertion Sort method which organizes the Course Tallies in sorted order in an array
+    Session[][] schedule = s1.courseSchedule(courseID); //2D array called schedule which represents the 5 room by 5 time slot array, populated by most popular courses in order
     for (int x=0;x<studentCourses.length;x++){
         int a = 0; //used to reference the course in schedule in next line
         int b = 0;
         s1.addStudents(schedule, schedule[a][b], studentCourses[x]);
         s1.printSchedule(schedule);
-        a++;
+        a++; //increments a and b to add the next student
         b++;
     }
 }
